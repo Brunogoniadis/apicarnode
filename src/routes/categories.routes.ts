@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, response } from 'express';
 import { Category } from '../model/Category';
 import { CategoriesRepository } from '../repositories/CategoriesRepository';
 
@@ -10,7 +10,12 @@ categoriesRoutes.post('/', (request, response) => {
 
   categoriesRepository.create({ name, description });
 
-  return response.status(201).json(categoriesRepository);
+  return response.status(201).send();
 });
 
+categoriesRoutes.get('/', (request, response) => {
+  const all = categoriesRepository.list();
+
+  return response.json(all);
+});
 export { categoriesRoutes };
